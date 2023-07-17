@@ -597,6 +597,18 @@ bool AP_MotorsMatrix::setup_quad_matrix(motor_frame_type frame_type)
         add_motors(motors, ARRAY_SIZE(motors));
         break;
     }
+    case MOTOR_FRAME_TYPE_odo: {
+        _frame_type_string = "odo";
+        // symmetric frame but angle is 42.6 degree
+        static const AP_MotorsMatrix::MotorDef motors[] {
+            {   42.6, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   1 },
+            { -132.6, AP_MOTORS_MATRIX_YAW_FACTOR_CW,   3 },
+            {  -42.6, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  4 },
+            {  132.6, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  2 },
+        };
+        add_motors(motors, ARRAY_SIZE(motors));
+        break;
+    }
 #if APM_BUILD_TYPE(APM_BUILD_ArduPlane)
     case MOTOR_FRAME_TYPE_NYT_PLUS: {
         _frame_type_string = "NYT_PLUS";
